@@ -1,13 +1,18 @@
 @font-face {
-    font-family: 'Microgramma D Bold Extended';
+    font-family: 'Microgramma Bold';
     src: url('../fonts/MICROGBE.TTF');
 }
+ @font-face {
+    font-family: 'Microgramma';
+    src: url('../fonts/MICROGME.TTF');
+ }
 
 body {
-    font-family: 'Microgramma D Bold Extended';
+    font-family: 'Microgramma';
 }
 
 .dropbtn {
+    font-family: 'Microgramma Bold';
     background-color: #4CAF50;
     color: white;
     padding: 16px;
