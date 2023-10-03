@@ -1,6 +1,44 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <h1>Welcome to ToadCraft!</h1>
-    <p>Here you can find all the information you need to know about ToadCraft.</p>
+    <div class="pic-or-vid">
+        <div>
+            <h1>pic or vid goes here</h1 >
+        </div>
+        <div>
+            <h3>Introduce Brand, words overlaying pic or vid</h3>
+        </div>
+    </div>
+    <div class="services-container">
+        <h1>Services</h1>
+        <hr>
+        <div class="dropdown-services-list-container">
+            <div class="dropdown-services-list">
+                <button class="dropbtn">Web Development</button>
+                <div class="dropdown-content">
+                    <a href="#">Web Design</a>
+                    <a href="#">Web Development</a>
+                    <a href="#">Web Hosting</a>
+                </div>
+                <hr>
+            </div>
+            <div class="dropdown-services-list">
+                <button class="dropbtn">Graphic Design</button>
+                <div class="dropdown-content">
+                    <a href="#">Logo Design</a>
+                    <a href="#">Business Cards</a>
+                    <a href="#">Flyers</a>
+                </div>
+            </div>
+            <div class="dropdown-services-list">
+                <button class="dropbtn">Video Production</button>
+                <div class="dropdown-content">
+                    <a href="#">Video Editing</a>
+                    <a href="#">Video Production</a>
+                    <a href="#">Video Hosting</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 {% endblock content %}
