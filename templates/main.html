@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToadCraft</title>
+    <!-- <link href="/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="{% static 'styles/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    {% block content %}
+    {% endblock content %}
+    {% include 'footer.html' %}
+</body>
+</html>
