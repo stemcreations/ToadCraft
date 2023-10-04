@@ -7,6 +7,10 @@
     src: url('../fonts/MICROGME.TTF');
  }
 
+ /* ------------------------------------------------ */
+/* ------------------ Global CSS ------------------ */
+/* ------------------------------------------------ */
+
  :root {
     --main-color: #067FAC;
     --main-color-hover: #00A0F3;
@@ -18,25 +22,127 @@
 
 body {
     font-family: 'Microgramma';
+
 }
 
+/* ------------------------------------------------ */
+/* ------------------ END Global CSS ------------------ */
+/* ------------------------------------------------ */
+/* ------------------------------------------------ */
+/* ------------------ Mobile CSS ------------------ */
+/* ------------------------------------------------ */
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+        width: 100%;
+        margin: 0;
+    }
+    .navbar-links {
+        display: none;
+    }
+    .dropdown-menu {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        transition: all .5s ease-in-out;
+    }
+    .navbar-container {
+        height: 150px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0 50px;
+    }
+    .logo {
+        height: 130px;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    body {
+        font-size: 12px;
+    }
+    .menu-btn {
+        display: none;
+    }
+
+    .navbar-container {
+        height: 200px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0 50px;
+    }
+    .logo {
+        height: 200px;
+    }
+}
+
+
+/* ------------------------------------------------ */
+/* ------------------ END Mobile CSS ------------------ */
+/* ------------------------------------------------ */    
 /* ------------------------------------------------ */
 /* ------------------ Header CSS ------------------ */
 /* ------------------------------------------------ */
 
-.logo {
-    height: 200px;
-    width: 350px;
-    margin-top: 20px;
-}
 
 .navbar-container {
-    height: 100px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
     padding: 0 50px;
 }
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #067FAC;
+    top: 100px;
+    left: 100;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+    z-index: 105;
+}
+
+/*full width dropdown container */
+.show-menu {
+    display: block;
+    background-color: #067FAC;
+    color: #E6F4F1;
+    font-family: 'Microgramma';
+    transition: all .5s ease-in-out;
+
+}
+
+.link-btn-mobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: var(--on-main-color);
+    font-size: 24px;
+    font-family: 'Microgramma';
+    padding: 0 50px;
+}
+
 
 /* ------------------------------------------------ */
 /* ------------------ END HEADER CSS ------------------ */

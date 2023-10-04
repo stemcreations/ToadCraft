@@ -10,4 +10,23 @@
             <li class="link-btn"><a href="#">Contact</a></li>
         </ul>
     </div>
+    
+    <div class="menu-btn">
+        <button class="hamburger" id="menu-toggle">&#9776;</button>
+    </div>
+    <div class="dropdown-menu">
+        <a class="link-btn-mobile" href="#">Home</a>
+        <a class="link-btn-mobile" href="#">Projects</a>
+        <a class="link-btn-mobile" href="#">Contact</a>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const menuButton = document.getElementById("menu-toggle");
+        const dropdownMenu = document.querySelector(".dropdown-menu");
+
+        menuButton.addEventListener("click", function () {
+            dropdownMenu.classList.toggle("show-menu");
+        });
+    });
+    </script>
 </div>
