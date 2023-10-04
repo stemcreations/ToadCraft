@@ -15,9 +15,9 @@
         <button class="hamburger" id="menu-toggle">&#9776;</button>
     </div>
     <div class="dropdown-menu">
-        <a class="link-btn-mobile" href="#">Home</a>
-        <a class="link-btn-mobile" href="#">Projects</a>
-        <a class="link-btn-mobile" href="#">Contact</a>
+        <a class="link-btn-mobile" href="{% url 'home' %}">Home</a>
+        <a class="link-btn-mobile" href="{% url 'projects' %}">Projects</a>
+        <a class="link-btn-mobile" href="{% url 'contact' %}">Contact</a>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {

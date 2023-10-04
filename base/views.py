@@ -5,3 +5,12 @@ from django.shortcuts import render
 
 def home(request):
     return render(request, 'base/home.html')    
+
+def projects(request):
+    return render(request, 'base/all_projects.html')
+
+def project_detail(request):
+    return render(request, 'base/project_detail.html')
+
+def contact(request):
+    return render(request, 'base/contact.html')
