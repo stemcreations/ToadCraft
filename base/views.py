@@ -9,8 +9,9 @@ def home(request):
 def projects(request):
     return render(request, 'base/all_projects.html')
 
-def project_detail(request):
-    return render(request, 'base/project_detail.html')
+def project_detail(request, pk):
+    context = {}
+    return render(request, 'base/project_detail.html', context)
 
 def contact(request):
     return render(request, 'base/contact.html')
