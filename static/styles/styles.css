@@ -8,25 +8,54 @@
  }
 
  :root {
-    --background-color: #EEFBFF;
     --main-color: #067FAC;
     --main-color-hover: #00A0F3;
     --on-main-color: #E6F4F1;
     --on-main-color-hover: #EEFBFF;
     --on-background-color: #374955;
-
+    
  }
 
 body {
     font-family: 'Microgramma';
 }
 
+/* ------------------------------------------------ */
+/* ------------------ Header CSS ------------------ */
+/* ------------------------------------------------ */
+
+.logo {
+    height: 200px;
+    width: 350px;
+    margin-top: 20px;
+}
+
+.navbar-container {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+
+/* ------------------------------------------------ */
+/* ------------------ END HEADER CSS ------------------ */
+/* ------------------------------------------------ */
+/* ------------------------------------------------ */
+/* ------------------ Navbar CSS ------------------ */
+/* ------------------------------------------------ */
+
 .dropbtn {
     font-family: 'Microgramma Bold';
     background-color: #067FAC;
+    flex-direction: row;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
 }
+
+/* ------------------------------------------------ */
+/* ------------------ END Navbar CSS ------------------ */
+/* ------------------------------------------------ */
