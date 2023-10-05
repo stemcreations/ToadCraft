@@ -1,3 +1,6 @@
+base/__pycache__/
+toadcraft/__pycache__/
+tcenv/
 tcenv/pyvenv.cfg
 tcenv/Lib/site-packages/distutils-precedence.pth
 tcenv/Lib/site-packages/Django-4.2.5.dist-info/AUTHORS
