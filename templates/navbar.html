@@ -1,32 +1,71 @@
 {% load static %}
-<div class="navbar-container">
+
+<div class="navbar-container flex justify-between items-center px-4 py-0 h-48 md:h-48">
     <div class="logo">
-        <img class="logo" src="{% static 'images/Logo.svg' %}" alt="Logo">
+        <img src="{% static 'images/Logo.svg' %}" alt="Logo" class="img h-44">
     </div>
-    <div class="navbar-links">
-        <ul class="navbar">
-            <li class="link-btn"><a href="#">Home</a></li>
-            <li class="link-btn"><a href="#">Projects</a></li>
-            <li class="link-btn"><a href="#">Contact</a></li>
+    <!-- Desktop Navbar Links -->
+    <div class=" hidden md:block">
+        <ul class="navbar flex space-x-4">
+            <li><a href="#" class="link-btn">Home</a></li>
+            <li><a href="#" class="link-btn">Projects</a></li>
+            <li><a href="#" class="link-btn">Contact</a></li>
         </ul>
     </div>
-    
-    <div class="menu-btn">
-        <button class="hamburger" id="menu-toggle">&#9776;</button>
-    </div>
-    <div class="dropdown-menu">
-        <a class="link-btn-mobile" href="{% url 'home' %}">Home</a>
-        <a class="link-btn-mobile" href="{% url 'projects' %}">Projects</a>
-        <a class="link-btn-mobile" href="{% url 'contact' %}">Contact</a>
+    <!-- Mobile Menu Button and Dropdown Menu -->
+    <div class="mobile-navication-container group md:hidden">
+        <button
+        class="mt-10 inline-block rounded relative px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+        data-te-sidenav-toggle-ref
+        onclick="toggleDropdown()"
+        style="background-color: #067FAC"
+        data-te-target="#sidenav-7"
+        aria-controls="#sidenav-7"
+        aria-haspopup="true">
+            <span class="block [&>svg]:h-8 [&>svg]:w-8 [&>svg]:text-white">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                style="color: white"
+                class="h-16 w-16">
+                <path
+                    fill-rule="evenodd"
+                    d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                    clip-rule="evenodd" />
+                </svg>
+            </span>
+        </button>
+        
+        <div id="dropdown-menu" class="absolute right-0 h-screen w-0 bg-white overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="flex flex-col">
+                <ul class="space-y-2">
+                    <li>
+                        <a class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" href="{% url 'home' %}" class="link-btn-mobile"><span class="ml-3">Home</span></a>
+                    </li>
+                    <li>
+                        <a class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" href="{% url 'projects' %}" class="link-btn-mobile"><span class="ml-3">Projects</span></a>
+                    </li>
+                    <li>
+                        <a class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" href="{% url 'contact' %}" class="link-btn-mobile"><span class="ml-3">Contact</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        const menuButton = document.getElementById("menu-toggle");
-        const dropdownMenu = document.querySelector(".dropdown-menu");
+        let dropdownVisible = false;
+        function toggleDropdown() {
+            const dropdownMenu = document.getElementById("dropdown-menu");
+            dropdownVisible = !dropdownVisible;
 
-        menuButton.addEventListener("click", function () {
-            dropdownMenu.classList.toggle("show-menu");
-        });
-    });
+            if (dropdownVisible) {
+                dropdownMenu.classList.remove("w-0");
+                dropdownMenu.classList.add("w-72");
+            } else {
+                dropdownMenu.classList.remove("w-72");
+                dropdownMenu.classList.add("w-0");
+            }
+        }
     </script>
 </div>
