@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="navbar-container flex justify-between items-center px-4 py-0 h-48 md:h-48">
+<div class="navbar-container flex justify-between items-end px-4 py-0 h-48 md:h-48">
     <div class="logo">
         <img src="{% static 'images/Logo.svg' %}" alt="Logo" class="img h-44">
     </div>
@@ -13,22 +13,17 @@
         </ul>
     </div>
     <!-- Mobile Menu Button and Dropdown Menu -->
-    <div class="mobile-navication-container group md:hidden">
+    <div class="mobile-navication-container group md:hidden align-bottom">
         <button
-        class="mt-10 inline-block rounded relative px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
-        data-te-sidenav-toggle-ref
+        class="mt-10 inline-block relative px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white"
         onclick="toggleDropdown()"
-        style="background-color: #067FAC"
-        data-te-target="#sidenav-7"
-        aria-controls="#sidenav-7"
-        aria-haspopup="true">
             <span class="block [&>svg]:h-8 [&>svg]:w-8 [&>svg]:text-white">
                 <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                style="color: white"
-                class="h-16 w-16">
+                style="color: black"
+                class="h-20 w-20">
                 <path
                     fill-rule="evenodd"
                     d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
