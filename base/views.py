@@ -9,15 +9,30 @@ from .forms import ImageUploadForm
 def home(request):
     return render(request, 'base/home.html')    
 
+# gets all projects and loads them into the context. Project displays the primary image for each project
 def projects(request):
-    return render(request, 'base/all_projects.html')
+    context = {'projects': Project.objects.all()}
+    return render(request, 'base/all_projects.html', context)
 
+# gets project detail by primary key and loads all of the images associated 
+# with that project and addes them to the context
 def project_detail(request, pk):
-    context = {}
+    project = get_object_or_404(Project, pk=pk)
+    images = ProjectImage.objects.filter(project=project)
+    context = {'project': project, 'images': images}
     return render(request, 'base/project_detail.html', context)
 
 def contact(request):
-    return render(request, 'base/contact.html')
+    if request.method == 'POST':
+        ContactUs.objects.create(
+            name=request.POST['name'],
+            email=request.POST['email'],
+            phone=request.POST['phone'],
+            message=request.POST['message']
+        )
+        return redirect('home')
+    else:
+        return render(request, 'base/contact.html')
 
 @login_required
 def upload_images(request, project_id):
