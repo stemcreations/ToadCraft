@@ -1,6 +1,7 @@
 base/__pycache__/
 toadcraft/__pycache__/
 tcenv/
+theme/
 theme/__pycache__/
 tcenv/pyvenv.cfg
 tcenv/Lib/site-packages/distutils-precedence.pth
