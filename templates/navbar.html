@@ -14,35 +14,34 @@
     </div>
     <!-- Mobile Menu Button and Dropdown Menu -->
     <div class="mobile-navication-container group md:hidden align-bottom">
-        <button
-        class="mt-10 inline-block relative px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white"
-        onclick="toggleDropdown()"
-            <span class="block [&>svg]:h-8 [&>svg]:w-8 [&>svg]:text-white">
-                <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                style="color: black"
+        <button class="mt-10 inline-block relative px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white"
+            onclick="toggleDropdown()" <span class="block [&>svg]:h-8 [&>svg]:w-8 [&>svg]:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="color: black"
                 class="h-20 w-20">
-                <path
-                    fill-rule="evenodd"
+                <path fill-rule="evenodd"
                     d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
                     clip-rule="evenodd" />
-                </svg>
+            </svg>
             </span>
         </button>
-        
-        <div id="dropdown-menu" class="absolute right-0 h-3/4 w-0 bg-white overflow-hidden transition-all duration-300 ease-in-out">
+
+        <div id="dropdown-menu"
+            class="absolute right-0 h-3/4 w-0 bg-white bg-opacity-75 backdrop-blur-sm overflow-hidden transition-all duration-300 ease-in-out">
             <div class="flex flex-col text-center flex-grow">
                 <ul class="space-y-2">
-                    <li class="flex-1 p-2 text-2xl font-medium text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <li
+                        class="flex-1 p-2 text-2xl font-medium text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 hover:bg-opacity-50 dark:hover:bg-gray-700">
                         <a href="{% url 'home' %}" class="link-btn-mobile"><span class="mx-20 my-8">Home</span></a>
                     </li>
-                    <li class="flex-1 p-2 text-2xl font-medium text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" >
-                        <a href="{% url 'projects' %}" class="link-btn-mobile"><span class="mx-20 my-8">Projects</span></a>
+                    <li
+                        class="flex-1 p-2 text-2xl font-medium text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <a href="{% url 'projects' %}" class="link-btn-mobile"><span
+                                class="mx-20 my-8">Projects</span></a>
                     </li>
-                    <li class="flex-1 p-2 text-2xl font-medium text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <a href="{% url 'contact' %}" class="link-btn-mobile"><span class="mx-20 my-8">Contact</span></a>
+                    <li
+                        class="flex-1 p-2 text-2xl font-medium text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <a href="{% url 'contact' %}" class="link-btn-mobile"><span
+                                class="mx-20 my-8">Contact</span></a>
                     </li>
                 </ul>
             </div>
