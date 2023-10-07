@@ -6704,7 +6704,6 @@ tcenv/Scripts/pip3.exe
 tcenv/Scripts/python.exe
 tcenv/Scripts/pythonw.exe
 tcenv/Scripts/sqlformat.exe
-db.sqlite3
 tcenv/bin/activate
 tcenv/bin/activate.csh
 tcenv/bin/activate.fish
