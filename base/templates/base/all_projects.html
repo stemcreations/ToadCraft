@@ -1,10 +1,17 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <h1>All Projects</h1>
-    <ul>
-        {% for job in projects %}
-            <li><a href="{% url 'project_detail' job.id %}">{{ job.name }}</a></li>
-        {% endfor %}
-    </ul>
+{% for job in projects %}
+<div class="grid lg:grid-cols-3 md:grid-cols-2">
+    {% for job in projects %}
+    <div class="p-4 flex justify-center">
+        <a href="{% url 'project_detail' job.id %}">
+            <img class="h-auto w-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
+                src="{{ job.primary_image.image.url }}" alt="{{ job.name }}" />
+        </a>
+    </div>
+    <h3 class="flex justify-center text-lgrother">{{ job.name }}</h3>
+    {% endfor %}
+</div>
+{% endfor %}
 {% endblock content %}

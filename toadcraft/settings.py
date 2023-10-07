@@ -144,5 +144,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-# NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"  # for windows
-NPM_BIN_PATH = "/usr/local/bin/npm"  # for mac
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"  # for windows
+# NPM_BIN_PATH = "/usr/local/bin/npm"  # for mac
