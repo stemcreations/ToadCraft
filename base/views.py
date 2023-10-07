@@ -11,7 +11,8 @@ def home(request):
 
 # gets all projects and loads them into the context. Project displays the primary image for each project
 def projects(request):
-    context = {'projects': Project.objects.all()}
+    projects = Project.objects.all()
+    context = {'projects': projects}
     return render(request, 'base/all_projects.html', context)
 
 # gets project detail by primary key and loads all of the images associated 

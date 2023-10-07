@@ -1,4 +1,10 @@
 {% extends 'main.html' %}
 
 {% block content %}
+    <h1>All Projects</h1>
+    <ul>
+        {% for job in projects %}
+            <li><a href="{% url 'project_detail' job.id %}">{{ job.name }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock content %}
