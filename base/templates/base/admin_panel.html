@@ -1,33 +1,18 @@
-{% extends 'main.html' %}
+
+{% load tailwind_tags %}
+<!DOCTYPE html>
 {% load static %}
-{% block content %}
-
-<!-- Admin panel where an admin can create projects, add project types and upload project images -->
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToadCraft</title>
+    <link rel="shortcut icon" href="{% static 'images/Logo_Toad_Only.ico' %}" type="image/x-icon" />
+    <link rel="icon" href="{% static 'images/Logo_Toad_Only.ico' %}" type="image/x-icon" />
+    {% tailwind_css %}
+</head>
+<body>
 <div class="flex justify-start h-screen">
-    <!-- <div class="side-admin-navigation lg:basis-1/4 sm:w-auto border-r border-gray-400 lg:h-screen">
-        <div class="flex justify-center text-2xl">Admin Panel</div>
-        <div class="lg:flex lg:flex-col">
-            <div>
-                <a href="{% url 'admin_panel' %}" class="p-2">Create Project</a>
-            </div>
-            <div>
-                <a href="{% url 'admin_panel' %}" class="p-2">Create Project Type</a>
-            </div>
-            <div>
-                <a href="{% url 'admin_panel' %}" class="p-2">Upload Project Images</a>
-            </div>
-            <div>
-                <a href="{% url 'admin_panel' %}" class="p-2">Edit Project</a>
-            </div>
-            <div>
-                <a href="{% url 'admin_panel' %}" class="p-2">Edit Project Type</a>
-            </div>
-            <div>
-                <a href="{% url 'admin_panel' %}" class="p-2">Edit Project Images</a>
-            </div>
-        </div>
-    </div> -->
+    <!-- Navigation Container -->
     <aside class="ml-[-100%] fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-white transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]">
         <div>
     
@@ -96,39 +81,165 @@
             </button>
         </div>
     </aside>
-    
-    <div class="flex justify-center basis-3/4 align-top flex-grow">
-            <div class="flex flex-col justify-start ">
-                <div class="flex justify-center text-2xl">Create Project</div>
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="flex flex-col">
-                        <label for="name">Project Name</label>
-                        <input type="text" name="name" id="name" class="border border-gray-400 p-2 rounded-lg" />
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="description">Project Description</label>
-                        <textarea name="description" id="description" class="border border-gray-400 p-2 rounded-lg"></textarea>
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="project_type">Project Type</label>
-                        <select name="project_type" id="project_type" class="border border-gray-400 p-2 rounded-lg">
-                            {% for project_type in project_types %}
-                            <option value="{{ project_type.id }}">{{ project_type.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="primary_image">Primary Image</label>
-                        <input type="file" name="primary_image" id="primary_image" class="border border-gray-400 p-2 rounded-lg" />
-                    </div>
-                    <div class="flex flex-col pt-2">
-                        <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Create Project</button>
-                    </div>
-                </form>
+    <!-- Dashboard Container -->
+    <div class="ml-auto top-0 h-screen mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+        <div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
+            <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
+                <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Dashboard</h5>
             </div>
+        </div>
+        <div class="px-6 pt-6 2xl:container">
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div class="md:col-span-2 lg:col-span-1" >
+                    <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
+                        <div>
+                            <h5 class="text-xl text-gray-600 text-center">Project Details</h5>
+                            <div class="mt-2 flex justify-center gap-4">
+                                <h3 class="text-3xl font-bold text-gray-700">26 Projects</h3>
+                            </div>
+                        </div>
+                        <table class="w-full text-gray-600">
+                            <tbody>
+                                <tr>
+                                    <td class="py-2">Kong Crete</td>
+                                    <td class="text-gray-500">8 Images</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                                <tr>
+                                    <td class="py-2">JRE Construction</td>
+                                    <td class="text-gray-500">15 Images</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                                <tr>
+                                    <td class="py-2">Offroad Recon</td>
+                                    <td class="text-gray-500">12 Images</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
+                <div class="md:col-span-2 lg:col-span-1" >
+                    <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
+                        <div>
+                            <h5 class="text-xl text-gray-600 text-center">Type Details</h5>
+                            <div class="mt-2 flex justify-center gap-4">
+                                <h3 class="text-3xl font-bold text-gray-700">26 Projects</h3>
+                            </div>
+                        </div>
+                        <table class="w-full text-gray-600">
+                            <tbody>
+                                <tr>
+                                    <td class="py-2">Wraps</td>
+                                    <td class="text-gray-500">34%</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                                <tr>
+                                    <td class="py-2">Banners</td>
+                                    <td class="text-gray-500">65%</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                                <tr>
+                                    <td class="py-2">Other</td>
+                                    <td class="text-gray-500">12%</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
+                <div class="md:col-span-2 lg:col-span-1" >
+                    <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
+                        <div>
+                            <h5 class="text-xl text-gray-600 text-center">Image Details</h5>
+                            <div class="mt-2 flex justify-center gap-4">
+                                <h3 class="text-3xl font-bold text-gray-700">256 Images</h3>
+                            </div>
+                        </div>
+                        <table class="w-full text-gray-600">
+                            <tbody>
+                                <tr>
+                                    <td class="py-2">Wrap Images</td>
+                                    <td class="text-gray-500">65</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                                <tr>
+                                    <td class="py-2">Banner Images</td>
+                                    <td class="text-gray-500">24</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                                <tr>
+                                    <td class="py-2">Sign Images</td>
+                                    <td class="text-gray-500">12</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                                <tr>
+                                    <td class="py-2">Other Images</td>
+                                    <td class="text-gray-500">120</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
+                <div class="md:col-span-2 lg:col-span-1" >
+                    <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
+                        <div>
+                            <h5 class="text-xl text-gray-600 text-center">Contacts</h5>
+                            <div class="mt-2 flex justify-center gap-4">
+                                <h3 class="text-3xl font-bold text-gray-700">54 Customers</h3>
+                            </div>
+                        </div>
+                        <table class="w-full text-gray-600">
+                            <tbody>
+                                <tr>
+                                    <td class="py-2">Wrap Customers</td>
+                                    <td class="text-gray-500">35</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                                <tr>
+                                    <td class="py-2">Banner Customers</td>
+                                    <td class="text-gray-500">10</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                                <tr>
+                                    <td class="py-2">Other Customers</td>
+                                    <td class="text-gray-500">9</td>
+                                    <td>
+
+                                    </td>   
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-
-{% endblock content %}
+</body>
+</html>
