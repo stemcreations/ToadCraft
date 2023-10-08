@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from .models import Project, ProjectType, ProjectImage, ContactUs
 from .forms import ImageUploadForm
 
@@ -49,3 +50,29 @@ def upload_images(request, project_id):
 
     context = {'form': form, 'project': project}
     return render(request, 'base/upload_images.html', context)
+
+def admin_login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    if request.method == 'POST':
+        username = request.POST['username'].lower()
+        password = request.POST['password']
+        try:
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                print('login failed')
+        except Exception as e:
+            print(e)
+    return render(request, 'base/login.html')
+
+@login_required
+def admin_panel(request):
+    projects = Project.objects.all()
+    images = ProjectImage.objects.all()
+    project_types = ProjectType.objects.all()
+
+    context = {'projects': projects, 'images': images, 'project_types': project_types}
+    return render(request, 'base/admin_panel.html', context)

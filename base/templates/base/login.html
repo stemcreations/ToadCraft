@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="flex justify-center">
+    <div class="w-1/2">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="flex flex-col">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="border border-gray-400 p-2 rounded-lg" />
+            </div>
+            <div class="flex flex-col">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="border border-gray-400 p-2 rounded-lg" />
+            </div>
+            <div class="flex flex-col pt-2">
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Login</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
