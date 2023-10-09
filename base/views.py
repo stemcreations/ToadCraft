@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import Project, ProjectType, ProjectImage, ContactUs
 from .forms import ImageUploadForm
 
@@ -68,11 +68,16 @@ def admin_login(request):
             print(e)
     return render(request, 'base/login.html')
 
-@login_required
+@login_required(login_url='login_page')
 def admin_panel(request):
+        
     projects = Project.objects.all()
     images = ProjectImage.objects.all()
     project_types = ProjectType.objects.all()
 
     context = {'projects': projects, 'images': images, 'project_types': project_types}
     return render(request, 'base/admin_panel.html', context)
+
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
