@@ -53,7 +53,7 @@ def upload_images(request, project_id):
 
 def admin_login(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('admin_panel')
     if request.method == 'POST':
         username = request.POST['username'].lower()
         password = request.POST['password']
@@ -61,7 +61,7 @@ def admin_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('admin_panel')
             else:
                 print('login failed')
         except Exception as e:
