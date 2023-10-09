@@ -25,4 +25,21 @@ run inside environment.
   -python manage.py tailwind start
   python manage.py runserver
 
-  
+
+@font-face {
+    font-family: 'MicrogrammaBold';
+    src: url('../../../static/fonts/MicrogrammaBoldRegular.ttf');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'MicrogrammaReg';
+    src: url('../../../static/fonts/MicrogrammaRegular.ttf');
+}
+
+theme: {
+    fontFamily: {
+        'MicrogrammaReg': ['MicrogrammaReg', 'sans-serif'],
+        'MicrogrammaBold': ['MicrogrammaBold', 'sans-serif'],
+    },
+},
