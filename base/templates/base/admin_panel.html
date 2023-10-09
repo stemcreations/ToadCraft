@@ -91,7 +91,8 @@
                 <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Dashboard</h5>
             </div>
         </div>
-        <div class="px-6 pt-6 2xl:container">
+        <!-- Content Container -->
+        <div id="container" style="display: block;" class="px-6 pt-6 2xl:container">
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <div class="md:col-span-2 lg:col-span-1" >
                     <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
@@ -240,6 +241,48 @@
                         </table> 
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Projects Container -->
+        <div style="display: block;" class="px-6 pt-6 2xl:container">
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                
+                    {% for job in projects %}
+                    <div class="p-4 flex-col justify-center">
+                        <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">{{ job.name }}</div>
+                        <a href="{% url 'project_detail' job.id %}">
+                            <img class="h-auto w-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
+                                src="{{ job.primary_image.image.url }}" alt="{{ job.name }}" />
+                        </a>
+                    </div>
+                    {% endfor %}
+              
+            </div>
+        </div>
+        <!-- Project Types Container -->
+        <div style="display: block;" class="px-6 pt-6 2xl:container">
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          
+                    {% for type in project_types %}
+                    <div>
+                        <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">{{ type.name }}</div>
+
+                    </div>
+                    {% endfor %}
+     
+            </div>
+        </div>
+        <!-- Images Container -->
+        <div style="display: block;" class="px-6 pt-6 2xl:container">
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"> 
+                    {% for img in images %}
+                    <div class="p-4 flex justify-center">
+                        <a href="#">
+                            <img class="h-auto w-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
+                                src="{{ img.image.url }}" alt="{{ project.name }}" /> {{img.project.name}}
+                        </a>
+                    </div>
+                    {% endfor %}          
             </div>
         </div>
     </div>
