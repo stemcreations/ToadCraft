@@ -96,6 +96,12 @@ def admin_images(request):
     context = {'images': images}
     return render(request, 'base/images_admin.html', context)
 
+@login_required(login_url='login_page')
+def admin_customers(request):
+    customers = ContactUs.objects.all()
+    context = {'customers': customers}
+    return render(request, 'base/customers.html', context)
+
 def logoutUser(request):
     logout(request)
     return redirect('home')
