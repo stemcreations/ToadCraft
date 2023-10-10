@@ -9,5 +9,9 @@ urlpatterns = [
     path('upload_images/<int:project_id>/', views.upload_images, name='upload_images'),
     path('login/', views.admin_login, name='login_page'),
     path('logout/' , views.logoutUser, name='logout'),
+
     path('admin_panel/', views.admin_panel, name='admin_panel'),
+    path('admin_panel/projects/', views.admin_panel_projects, name='admin_projects'),
+    path('admin_panel/project_types/', views.admin_project_types, name='admin_project_types'),
+    path('admin_panel/project_images/', views.admin_images, name='admin_images'),
 ]

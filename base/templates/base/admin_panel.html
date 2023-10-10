@@ -24,7 +24,7 @@
     
             <ul class="space-y-2 tracking-wide mt-8">
                 <li>
-                    <a href="#" aria-label="dashboard" class="relative px-4 py-3 flex items-center space-x-4 rounded-xl text-white bg-gradient-to-r from-sky-600 to-cyan-400">
+                    <a href="{% url 'admin_panel' %}" aria-label="dashboard" class="relative px-4 py-3 flex items-center space-x-4 rounded-xl text-white bg-gradient-to-r from-sky-600 to-cyan-400">
                         <svg class="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
                             <path d="M6 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8ZM6 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-1Z" class="fill-current text-cyan-400 dark:fill-slate-600"></path>
                             <path d="M13 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2V8Z" class="fill-current text-cyan-200 group-hover:text-cyan-300"></path>
@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-xl text-gray-600 group hover:bg-gradient-to-r hover:from-sky-600 hover:to-cyan-400">
+                    <a href="{% url 'admin_projects' %}" class="px-4 py-3 flex items-center space-x-4 rounded-xl text-gray-600 group hover:bg-gradient-to-r hover:from-sky-600 hover:to-cyan-400">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path class="fill-current text-gray-300 group-hover:text-cyan-300" fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clip-rule="evenodd" />
                             <path class="fill-current text-gray-600 group-hover:text-sky-300" d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-xl text-gray-600 group hover:bg-gradient-to-r hover:from-sky-600 hover:to-cyan-400">
+                    <a href="{% url 'admin_project_types' %}" class="px-4 py-3 flex items-center space-x-4 rounded-xl text-gray-600 group hover:bg-gradient-to-r hover:from-sky-600 hover:to-cyan-400">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path class="fill-current text-gray-600 group-hover:text-sky-300" fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd" />
                             <path class="fill-current text-gray-300 group-hover:text-cyan-300" d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" />
@@ -52,7 +52,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-xl text-gray-600 group hover:bg-gradient-to-r hover:from-sky-600 hover:to-cyan-400">
+                    <a href="{% url 'admin_images' %}" class="px-4 py-3 flex items-center space-x-4 rounded-xl text-gray-600 group hover:bg-gradient-to-r hover:from-sky-600 hover:to-cyan-400">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path class="fill-current text-gray-600 group-hover:text-sky-300" d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
                             <path class="fill-current text-gray-300 group-hover:text-cyan-300" d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
@@ -85,206 +85,9 @@
     </aside>
     <!-- Dashboard Container -->
     <div class="ml-auto top-0 h-screen mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-        <!-- dashboard tag at the top of the page. -->
-        <div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
-            <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
-                <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Dashboard</h5>
-            </div>
-        </div>
-        <!-- Content Container -->
-        <div id="container" style="display: block;" class="px-6 pt-6 2xl:container">
-            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <div class="md:col-span-2 lg:col-span-1" >
-                    <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
-                        <div>
-                            <h5 class="text-xl text-gray-600 text-center">Project Details</h5>
-                            <div class="mt-2 flex justify-center gap-4">
-                                <h3 class="text-3xl font-bold text-gray-700">26 Projects</h3>
-                            </div>
-                        </div>
-                        <table class="w-full text-gray-600">
-                            <tbody>
-                                <tr>
-                                    <td class="py-2">Kong Crete</td>
-                                    <td class="text-gray-500">8 Images</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                                <tr>
-                                    <td class="py-2">JRE Construction</td>
-                                    <td class="text-gray-500">15 Images</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                                <tr>
-                                    <td class="py-2">Offroad Recon</td>
-                                    <td class="text-gray-500">12 Images</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                            </tbody>
-                        </table> 
-                    </div>
-                </div>
-                <div class="md:col-span-2 lg:col-span-1" >
-                    <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
-                        <div>
-                            <h5 class="text-xl text-gray-600 text-center">Type Details</h5>
-                            <div class="mt-2 flex justify-center gap-4">
-                                <h3 class="text-3xl font-bold text-gray-700">26 Projects</h3>
-                            </div>
-                        </div>
-                        <table class="w-full text-gray-600">
-                            <tbody>
-                                <tr>
-                                    <td class="py-2">Wraps</td>
-                                    <td class="text-gray-500">34%</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                                <tr>
-                                    <td class="py-2">Banners</td>
-                                    <td class="text-gray-500">65%</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                                <tr>
-                                    <td class="py-2">Other</td>
-                                    <td class="text-gray-500">12%</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                            </tbody>
-                        </table> 
-                    </div>
-                </div>
-                <div class="md:col-span-2 lg:col-span-1" >
-                    <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
-                        <div>
-                            <h5 class="text-xl text-gray-600 text-center">Image Details</h5>
-                            <div class="mt-2 flex justify-center gap-4">
-                                <h3 class="text-3xl font-bold text-gray-700">256 Images</h3>
-                            </div>
-                        </div>
-                        <table class="w-full text-gray-600">
-                            <tbody>
-                                <tr>
-                                    <td class="py-2">Wrap Images</td>
-                                    <td class="text-gray-500">65</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                                <tr>
-                                    <td class="py-2">Banner Images</td>
-                                    <td class="text-gray-500">24</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                                <tr>
-                                    <td class="py-2">Sign Images</td>
-                                    <td class="text-gray-500">12</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                                <tr>
-                                    <td class="py-2">Other Images</td>
-                                    <td class="text-gray-500">120</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                            </tbody>
-                        </table> 
-                    </div>
-                </div>
-                <div class="md:col-span-2 lg:col-span-1" >
-                    <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
-                        <div>
-                            <h5 class="text-xl text-gray-600 text-center">Contacts</h5>
-                            <div class="mt-2 flex justify-center gap-4">
-                                <h3 class="text-3xl font-bold text-gray-700">54 Customers</h3>
-                            </div>
-                        </div>
-                        <table class="w-full text-gray-600">
-                            <tbody>
-                                <tr>
-                                    <td class="py-2">Wrap Customers</td>
-                                    <td class="text-gray-500">35</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                                <tr>
-                                    <td class="py-2">Banner Customers</td>
-                                    <td class="text-gray-500">10</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                                <tr>
-                                    <td class="py-2">Other Customers</td>
-                                    <td class="text-gray-500">9</td>
-                                    <td>
-
-                                    </td>   
-                                </tr>
-                            </tbody>
-                        </table> 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Projects Container -->
-        <div style="display: block;" class="px-6 pt-6 2xl:container">
-            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                
-                    {% for job in projects %}
-                    <div class="p-4 flex-col justify-center">
-                        <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">{{ job.name }}</div>
-                        <a href="{% url 'project_detail' job.id %}">
-                            <img class="h-auto w-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
-                                src="{{ job.primary_image.image.url }}" alt="{{ job.name }}" />
-                        </a>
-                    </div>
-                    {% endfor %}
-              
-            </div>
-        </div>
-        <!-- Project Types Container -->
-        <div style="display: block;" class="px-6 pt-6 2xl:container">
-            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          
-                    {% for type in project_types %}
-                    <div>
-                        <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">{{ type.name }}</div>
-
-                    </div>
-                    {% endfor %}
-     
-            </div>
-        </div>
-        <!-- Images Container -->
-        <div style="display: block;" class="px-6 pt-6 2xl:container">
-            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"> 
-                    {% for img in images %}
-                    <div class="p-4 flex justify-center">
-                        <a href="#">
-                            <img class="h-auto w-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
-                                src="{{ img.image.url }}" alt="{{ project.name }}" /> {{img.project.name}}
-                        </a>
-                    </div>
-                    {% endfor %}          
-            </div>
-        </div>
+        {% block content %}
+        
+        {% endblock content %}
     </div>
 </div>
 </body>

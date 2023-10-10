@@ -76,7 +76,25 @@ def admin_panel(request):
     project_types = ProjectType.objects.all()
 
     context = {'projects': projects, 'images': images, 'project_types': project_types}
-    return render(request, 'base/admin_panel.html', context)
+    return render(request, 'base/dashboard.html', context)
+
+@login_required(login_url='login_page')
+def admin_panel_projects(request):
+    projects = Project.objects.all()
+    context = {'projects': projects}
+    return render(request, 'base/projects_admin.html', context)
+
+@login_required(login_url='login_page')
+def admin_project_types(request):
+    project_types = ProjectType.objects.all()
+    context = {'project_types': project_types}
+    return render(request, 'base/project_types_admin.html', context)
+
+@login_required(login_url='login_page')
+def admin_images(request):
+    images = ProjectImage.objects.all()
+    context = {'images': images}
+    return render(request, 'base/images_admin.html', context)
 
 def logoutUser(request):
     logout(request)
