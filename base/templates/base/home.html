@@ -1,57 +1,42 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content %}
     <div class="flex flex-col items-center">
-        <div class="w-screen h-auto md:w-max md:h-auto lg:w-9/12 lg:h-auto bg-slate-100">
-            Hello
-        </div>
-        <div>
-            <h3 class="text-2xl bg-amber-300 font-MicrogrammaBold">TOADCRAFT</h3>
+        <div class="w-screen h-auto md:w-screen md:h-auto lg:w-9/12 lg:h-auto bg-slate-100 mt-6">
+            <video loop autoplay muted class="lg:rounded-xl" src="{% static 'videos/vid1.mov' %}"></video>
         </div>
     </div>
+    <hr class="mx-4 mt-4 bg-slate-500 rounded-xl h-0.5">
     <div class="services-container">
-        <h1 class="font-MicrogrammaReg text-2xl">Services I am testing the fonts here.</h1>
-        <hr>
-        <div class="dropdown-services-list-container">
+        <h1 class="font-MicrogrammaReg text-4xl m-4 text-gray-600">Services</h1>
+        
+        <div class="mx-4 flex flex-wrap justify-center">
             <div class="dropdown-services-list">
-                <button class="dropbtn">Web Development</button>
-                <div class="dropdown-content">
-                    <a href="#">Web Design</a>
-                    <a href="#">Web Development</a>
-                    <a href="#">Web Hosting</a>
-                </div>
-                <hr>
+                <span class="mx-4 my-3 tracking-widest text-lg font-MicrogrammaReg">Graphics</span>
             </div>
-            <div class="dropdown-services-list">
-                <button class="dropbtn">Graphic Design</button>
-                <div class="dropdown-content">
-                    <a href="#">Logo Design</a>
-                    <a href="#">Business Cards</a>
-                    <a href="#">Flyers</a>
-                </div>
-                <hr>
+            <div>
+                <span class="mx-4 my-3 tracking-widest text-lg font-MicrogrammaReg">Wraps</span>
             </div>
-            <div class="dropdown-services-list">
-                <button class="dropbtn">Video Production</button>
-                <div class="dropdown-content">
-                    <a href="#">Video Editing</a>
-                    <a href="#">Video Production</a>
-                    <a href="#">Video Hosting</a>
-                </div>
-                <hr>
+            <div>
+                <span class="mx-4 my-3 tracking-widest text-lg font-MicrogrammaReg">Signs</span>
             </div>
-
+            <div>
+                <span class="mx-4 my-3 tracking-widest text-lg font-MicrogrammaReg">Banners</span>
+            </div>
+            <div>
+                <span class="mx-4 my-3 tracking-widest text-lg font-MicrogrammaReg">Stickers</span>
+            </div>
         </div>
+        <hr class="mx-4 my-4 bg-slate-500 rounded-xl h-0.5">
     </div>
     <div class="follow-us-container">
-        <h1>Follow Us</h1>
-        <hr>
-        <div class="isolate inline-flex">
-            <div class="instagram">
+        <h1 class="font-MicrogrammaReg text-4xl m-4 text-gray-600">Follow Us</h1>
+        <div class="flex justify-center">
+            <div class="instagram mx-6">
                 <a href="https://www.instagram.com/toadcraft/">
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-7 w-7"
+                    class="h-12 w-12"
                     fill="currentColor"
                     style="color: #c13584"
                     viewbox="0 0 24 24">
@@ -60,11 +45,11 @@
                     </svg>
                 </a>
             </div>
-            <div class="facebook">
+            <div class="facebook mx-6">
                 <a href="https://www.facebook.com/ToadCraftGraphics">
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-7 w-7"
+                    class="h-12 w-12"
                     fill="currentColor"
                     style="color: #1877f2"
                     viewbox="0 0 24 24">
@@ -75,12 +60,12 @@
             </div>
         </div>
     </div>
+    <hr class="mx-4 my-4 bg-slate-500 rounded-xl h-0.5">
     <div class="about-container">
-        <h1>About</h1>
-        <hr>
-        <div class="about-content">
-            <div class="about-content-pic">
-                <img src="https://via.placeholder.com/150" alt="placeholder">
+        <h1 class="font-MicrogrammaReg text-4xl m-4 text-gray-600">About Us</h1>
+        <div class="about-content flex flex-col items-center">
+            <div class="w-screen h-auto md:w-screen md:h-auto lg:w-9/12 lg:h-auto">
+                <img class="lg:rounded-xl md:rounded-xl" src="{% static 'images/utv.after.jpg' %}" alt="placeholder">
             </div>
             <div class="about-content-text">
                 <p>Lorem ipsum dolor sit amet</p>
