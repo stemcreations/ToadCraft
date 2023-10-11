@@ -95,9 +95,16 @@ def admin_project_details(request, pk):
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
             selected_image = request.POST.get('selected_image')
-            print(selected_image)
             if selected_image:
                 project.primary_image = ProjectImage.objects.get(pk=selected_image)
+                project.name = request.POST['name']
+                project.description = request.POST['description']
+                project.project_type.id = request.POST.get('project_type')
+                project.save()
+            else:
+                project.name = request.POST['name']
+                project.description = request.POST['description']
+                project.project_type.id = request.POST.get('project_type')
                 project.save()
             return redirect('admin_project_detail', pk=pk)
 
