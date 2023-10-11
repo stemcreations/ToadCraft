@@ -15,16 +15,21 @@
         {% for job in projects %}
         <div class="p-4 flex-col justify-center">
             <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">
-                {{ job.name }}</div>
+                {{ job.name }}
+            </div>
             <a href="{% url 'admin_project_detail' job.id %}">
                 <img class="h-auto w-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
                     src="{{ job.primary_image.image.url }}" alt="{{ job.name }}" />
             </a>
+            <div class="flex  bg-red-500 text-2xl text-white font-MicrogrammaReg rounded-t-lg rounded-b-lg mt-1 h-12">
+                <button class="delete-button flex flex-grow justify-center items-center tracking-widest">Delete</button>
+            </div>
         </div>
         {% endfor %}
 
     </div>
 </div>
+<!-- Add Project Modal Container -->
 <div class="modal-container hidden fixed z-10 inset-0 overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 transition-opacity">
@@ -66,6 +71,42 @@
         </div>
     </div>
 </div>
+<!-- Delete Project Modal Container -->
+<div class="modal-container-delete hidden fixed z-10 inset-0 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="sm:flex sm:items-start">
+                        <div>
+                            <h1 class="text-2xl">Delete Project:</h1>
+                            <div class="items-center m-8">
+                                <div>Are you sure you want to delete "Project Name Here? This action will permanently
+                                    delete all files associated with "Project Name Here".</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="submit"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                            Delete
+                        </button>
+                        <button type="button"
+                            class="close-delete-button mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                            Cancel
+                        </button>
+                    </div>
+                    <input type="hidden" name="delete" value="delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     const addProject = document.querySelector(".add-project");
     const modal = document.querySelector(".modal-container");
@@ -81,6 +122,25 @@
         modal.classList.remove('opacity-100');
         modal.classList.add('opacity-0');
         setTimeout(() => modal.classList.add('hidden'), 500);
+    });
+</script>
+<script>
+    const deleteButton = document.querySelectorAll(".delete-button");
+    const modalDelete = document.querySelector(".modal-container-delete");
+    const closeButtonDelete = document.querySelector(".close-delete-button");
+
+    deleteButton.forEach((button) => {
+        button.addEventListener('click', () => {
+            modalDelete.classList.remove('hidden');
+            setTimeout(() => modalDelete.classList.remove('opacity-0'), 100);
+            modalDelete.classList.add('opacity-100');
+        });
+    });
+
+    closeButtonDelete.addEventListener('click', () => {
+        modalDelete.classList.remove('opacity-100');
+        modalDelete.classList.add('opacity-0');
+        setTimeout(() => modalDelete.classList.add('hidden'), 500);
     });
 </script>
 
