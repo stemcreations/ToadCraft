@@ -67,6 +67,11 @@ def admin_panel(request):
 def admin_panel_projects(request):
     projects = Project.objects.all()
     form = ProjectForm()
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_projects')
     context = {'projects': projects, 'form': form}
     return render(request, 'base/admin_projects.html', context)
 
@@ -110,17 +115,6 @@ def admin_project_details(request, pk):
 
     context = {'project': project, 'images': images, 'form': form, 'image_form': image_form}
     return render(request, 'base/admin_project_details.html', context)
-
-@login_required(login_url='login_page')
-def admin_add_project(request):
-    form = ProjectForm()
-    if request.method == 'POST':
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('admin_projects')
-    context = {'form': form}
-    return render(request, 'base/admin_add_project.html', context)
 
 @login_required(login_url='login_page')
 def admin_project_types(request):

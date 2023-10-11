@@ -14,7 +14,6 @@ urlpatterns = [
     path('admin_panel/project_types/', views.admin_project_types, name='admin_project_types'),
     path('admin_panel/project_images/', views.admin_images, name='admin_images'),
     path('admin_panel/project_details/<str:pk>/', views.admin_project_details, name='admin_project_detail'),
-    path('admin_panel/add_project/', views.admin_add_project, name='admin_add_project'),
 
     path('admin_panel/customers/', views.admin_customers, name='admin_customers'),
     
