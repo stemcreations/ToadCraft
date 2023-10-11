@@ -36,21 +36,6 @@ def contact(request):
     else:
         return render(request, 'base/contact.html')
 
-@login_required
-def upload_images(request, project_id):
-    project = get_object_or_404(Project, pk=project_id)
-    if request.method == 'POST':
-        form = ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            for uploaded_file in request.FILES.getlist('images'):
-                ProjectImage.objects.create(project=project, image=uploaded_file)
-            return redirect('home')
-    else:
-        form = ImageUploadForm()
-
-    context = {'form': form, 'project': project}
-    return render(request, 'base/upload_images.html', context)
-
 def admin_login(request):
     if request.user.is_authenticated:
         return redirect('admin_panel')
@@ -92,6 +77,7 @@ def admin_project_details(request, pk):
     form = ProjectForm(instance=project)
     image_form = ImageUploadForm()
 
+    # if the form_type is imageForm, then the user is trying to upload images
     if request.method == 'POST':
         if request.POST.get("form_type") == 'imageForm':
             image_form = ImageUploadForm(request.POST, request.FILES)
@@ -99,16 +85,22 @@ def admin_project_details(request, pk):
                 for uploaded_file in request.FILES.getlist('images'):
                     ProjectImage.objects.create(project=project, image=uploaded_file)
                 return redirect('admin_project_detail', pk=pk)
+            
+        # if the form_type is projectForm, then the user is trying to edit the project
         elif request.POST.get("form_type") == 'projectForm':
             form = ProjectForm(request.POST, instance=project)
             if form.is_valid():
                 selected_image = request.POST.get('selected_image')
+
+                # if the user selected a primary image, then set the primary image to the selected image
                 if selected_image:
                     project.primary_image = ProjectImage.objects.get(pk=selected_image)
                     project.name = request.POST['name']
                     project.description = request.POST['description']
                     project.project_type.id = request.POST.get('project_type')
                     project.save()
+
+                # if the user did not select a primary image, then save the other project details
                 else:
                     project.name = request.POST['name']
                     project.description = request.POST['description']
