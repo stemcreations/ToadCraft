@@ -1,20 +1,30 @@
 {% extends 'base/admin_panel.html' %}
 
 {% block content %}
-<div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
+<div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5 flex justify-between">
     <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
-        <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Project Types</h5>
+        <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Projects Types</h5>
+    </div>
+    <div class="flex justify-end items-center rounded-md mr-2 bg-black">
+        <a href="#" class="add-type text-2xl cursor-pointer w-44 p-4 ml-10 text-white font-medium lg:block">Add
+            Type</a>
     </div>
 </div>
 <div style="display: block;" class="px-6 pt-6 2xl:container">
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-  
-            {% for type in project_types %}
-            <div>
-                <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">{{ type.name }}</div>
 
+        {% for project, groups in grouped_projects.items %}
+        <div class="project-type-card border-solid border-2 rounded-md">
+
+            <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">
+                {{ project }}</div>
+            <div>
+                Number of projects with this type: {{ groups|length }}
             </div>
-            {% endfor %}
+
+        </div>
+
+        {% endfor %}
 
     </div>
 </div>

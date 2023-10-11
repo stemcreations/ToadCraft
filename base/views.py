@@ -134,8 +134,19 @@ def admin_project_details(request, pk):
 
 @login_required(login_url='login_page')
 def admin_project_types(request):
-    project_types = ProjectType.objects.all()
-    context = {'project_types': project_types}
+    projects = Project.objects.all()
+    images = ProjectImage.objects.all()
+    grouped_projects = {}
+    grouped_images = {}
+    for project in projects:
+        
+        if project.project_type.name in grouped_projects:
+            grouped_projects[project.project_type.name].append(project)
+        else:
+            grouped_projects[project.project_type.name] = [project]
+    print(grouped_projects)
+    form = ProjectTypeForm()
+    context = {'form': form, 'projects': projects, 'grouped_projects': grouped_projects}
     return render(request, 'base/admin_project_types.html', context)
 
 @login_required(login_url='login_page')
