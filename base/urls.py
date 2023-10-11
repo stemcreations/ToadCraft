@@ -17,4 +17,5 @@ urlpatterns = [
     path('admin_panel/add_project/', views.admin_add_project, name='admin_add_project'),
 
     path('admin_panel/customers/', views.admin_customers, name='admin_customers'),
+    
 ]
