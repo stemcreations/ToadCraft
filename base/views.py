@@ -83,7 +83,7 @@ def admin_panel_projects(request):
     projects = Project.objects.all()
     form = ProjectForm()
     context = {'projects': projects, 'form': form}
-    return render(request, 'base/projects_admin.html', context)
+    return render(request, 'base/admin_projects.html', context)
 
 @login_required(login_url='login_page')
 def admin_project_details(request, pk):
@@ -115,13 +115,13 @@ def admin_project_details(request, pk):
 def admin_project_types(request):
     project_types = ProjectType.objects.all()
     context = {'project_types': project_types}
-    return render(request, 'base/project_types_admin.html', context)
+    return render(request, 'base/admin_project_types.html', context)
 
 @login_required(login_url='login_page')
 def admin_images(request):
     images = ProjectImage.objects.all()
     context = {'images': images}
-    return render(request, 'base/images_admin.html', context)
+    return render(request, 'base/admin_images.html', context)
 
 @login_required(login_url='login_page')
 def admin_customers(request):
