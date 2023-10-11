@@ -92,10 +92,13 @@
                     {% csrf_token %}
                     <div class="sm:flex sm:items-start">
                         <div>
-                            <h1 class="text-2xl">Delete Project:</h1>
+                            <h1 class="text-2xl">Delete <span id="project-name3"></span></h1>
                             <div class="items-center m-8">
-                                <div>Are you sure you want to delete "Project Name Here? This action will permanently
-                                    delete all files associated with "Project Name Here".</div>
+                                <div id="delete-confirmation">Are you sure you want to delete <span
+                                        id="project-name">Project Name Here</span>?
+                                    This action will permanently
+                                    delete all files associated with <span id="project-name2">Project Name Here</span>.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -138,6 +141,9 @@
     const modalDelete = document.querySelector(".modal-container-delete");
     const closeButtonDelete = document.querySelector(".close-delete-button");
     const selectedProjectInput = document.getElementById("selected_project_input");
+    const projectName1 = document.getElementById("project-name");
+    const projectName2 = document.getElementById("project-name2");
+    const projectName3 = document.getElementById("project-name3");
 
     deleteButton.forEach((button) => {
         button.addEventListener('click', () => {
@@ -145,6 +151,10 @@
             setTimeout(() => modalDelete.classList.remove('opacity-0'), 100);
             modalDelete.classList.add('opacity-100');
             selectedProjectInput.value = button.getAttribute("data-project-id");
+            // change the span text to the project name
+            projectName1.innerHTML = button.parentElement.parentElement.children[0].innerHTML;
+            projectName2.innerHTML = button.parentElement.parentElement.children[0].innerHTML;
+            projectName3.innerHTML = button.parentElement.parentElement.children[0].innerHTML;
         });
     });
 
