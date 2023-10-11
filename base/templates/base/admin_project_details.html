@@ -1,0 +1,87 @@
+{% extends 'base/admin_panel.html' %}
+
+{% block content %}
+<div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
+    <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
+        <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Projects</h5>
+    </div>
+</div>
+<div class="flex justify-between items-center mt-8 mx-8">
+    <div class="w-1/3 mr-8">
+        <form class="w-full mx-auto flex flex-col justify-center" method="POST">
+        {% csrf_token %}
+        <div>
+            <div>Project Name</div>
+            {{ form.name }}
+        </div>
+        <div>
+        {{ form.description }}
+        </div>
+        <div>
+        {{ form.project_type }}
+        </div>
+        <div class="hidden">
+        {{ form.primary_image }}
+        </div>
+        <input type="hidden" id="selected_image_input" name="selected_image" value="">
+        <button
+        data-variant="flat"
+        class="text-[13px] md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none  bg-black text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600 hover:shadow-cart h-12 lg:h-14 mt-1 text-sm lg:text-base w-full sm:w-auto"
+        type="submit"
+        >
+        Submit
+        </button>
+        </form>
+    </div>
+    <div>
+        <div class="mx-8 mb-4 font-MicrogrammaReg font-semibold text-gray-600 tracking-widest text-2xl">
+            <h1>Current Cover Image</h1>
+        </div>
+        <div class="flex flex-wrap justify-center">
+            {% for img in images %}
+                    {% if project.primary_image.image.url == img.image.url %}
+                        <img id="primary_image" class="w-auto h-96 rounded-md border-solid border-2 border-red-500" src="{{ img.image.url }}" alt="{{ img.project.name }}" />
+                    {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="mx-8 mt-12 font-MicrogrammaReg font-semibold text-gray-600 tracking-widest text-2xl">
+    <h1>Select Cover Image</h1>
+</div>
+<div class="flex flex-wrap justify-between pb-12 my-4 mx-4">
+    {% for img in images %}
+        <div class="my-2">
+             <img class="image w-auto h-56 rounded-md cursor-pointer" src="{{ img.image.url }}" alt="{{ img.project.name }}" data-image-id="{{ img.id }}" />
+       </div>
+        {% endfor %}
+</div>
+<script>
+    const images = document.querySelectorAll(".image");
+    const selectedImageInput = document.getElementById("selected_image_input");
+    let selectedImage = null
+    images.forEach(image => {
+        image.addEventListener('click', function() {
+            if (selectedImage !== image) {
+                selectedImage = image;
+                selectedImageInput.value = selectedImage.getAttribute("data-image-id");
+
+                image.classList.add("border-solid", "border-4", "border-red-500");
+
+                document.querySelector("#primary_image").src = image.src;
+
+                // Remove border from all images
+                images.forEach(otherImage => {
+                    if (otherImage !== image) {
+                        otherImage.classList.remove("border-solid", "border-4", "border-red-500");
+                    }
+                });
+                // removes border from image if already selected
+            } else {
+                image.classList.remove("border-solid", "border-4", "border-red-500");
+            }
+        })
+    })
+</script>
+{% endblock content %}

@@ -11,7 +11,7 @@
             {% for job in projects %}
             <div class="p-4 flex-col justify-center">
                 <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">{{ job.name }}</div>
-                <a href="{% url 'project_detail' job.id %}">
+                <a href="{% url 'admin_project_detail' job.id %}">
                     <img class="h-auto w-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
                         src="{{ job.primary_image.image.url }}" alt="{{ job.name }}" />
                 </a>

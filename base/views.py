@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Project, ProjectType, ProjectImage, ContactUs
-from .forms import ImageUploadForm
+from .forms import ImageUploadForm, ProjectForm, ProjectTypeForm, ProjectImageForm
 
 # Create your views here.
 
@@ -81,8 +81,28 @@ def admin_panel(request):
 @login_required(login_url='login_page')
 def admin_panel_projects(request):
     projects = Project.objects.all()
-    context = {'projects': projects}
+    form = ProjectForm()
+    context = {'projects': projects, 'form': form}
     return render(request, 'base/projects_admin.html', context)
+
+@login_required(login_url='login_page')
+def admin_project_details(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    images = ProjectImage.objects.filter(project=project)
+    form = ProjectForm(instance=project)
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            selected_image = request.POST.get('selected_image')
+            print(selected_image)
+            if selected_image:
+                project.primary_image = ProjectImage.objects.get(pk=selected_image)
+                project.save()
+            return redirect('admin_project_detail', pk=pk)
+
+    context = {'project': project, 'images': images, 'form': form}
+    return render(request, 'base/admin_project_details.html', context)
 
 @login_required(login_url='login_page')
 def admin_project_types(request):
