@@ -13,37 +13,36 @@
         <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Projects</h5>
     </div>
     <div class="flex justify-end items-center rounded-md mr-2 bg-black">
-        <a href="#" class="add-images text-2xl cursor-pointer w-44 p-4 ml-5 text-white font-medium lg:block">Add Images</a>
+        <a href="#" class="add-images text-2xl cursor-pointer w-44 p-4 ml-5 text-white font-medium lg:block">Add
+            Images</a>
     </div>
 </div>
 <div class="flex justify-between items-center mt-8 mx-8">
     <div class="w-1/3 mr-8">
         <form id="projectForm" class="w-full mx-auto flex flex-col justify-center" method="POST">
-        {% csrf_token %}
-        <div>
-            <div>Project Name:</div>
-            {{ form.name }}
-        </div>
-        <div>
-            <div>Project Description:</div>
-        {{ form.description }}
-        </div>
-        <div>
-            <div>Project Type:</div>
-        {{ form.project_type }}
-        </div>
-        <div class="hidden">
-        {{ form.primary_image }}
-        </div>
-        <input type="hidden" name="form_type" value="projectForm">
-        <input type="hidden" id="selected_image_input" name="selected_image" value="">
-        <button
-        data-variant="flat"
-        class="text-[13px] md:text-sm rounded-md leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none  bg-black text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600 hover:shadow-cart h-12 lg:h-14 mt-1 text-sm lg:text-base w-full sm:w-auto"
-        type="submit"
-        >
-        Submit
-        </button>
+            {% csrf_token %}
+            <div>
+                <div>Project Name:</div>
+                {{ form.name }}
+            </div>
+            <div>
+                <div>Project Description:</div>
+                {{ form.description }}
+            </div>
+            <div>
+                <div>Project Type:</div>
+                {{ form.project_type }}
+            </div>
+            <div class="hidden">
+                {{ form.primary_image }}
+            </div>
+            <input type="hidden" name="form_type" value="projectForm">
+            <input type="hidden" id="selected_image_input" name="selected_image" value="">
+            <button data-variant="flat"
+                class="text-[13px] md:text-sm rounded-md leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none  bg-black text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600 hover:shadow-cart h-12 lg:h-14 mt-1 text-sm lg:text-base w-full sm:w-auto"
+                type="submit">
+                Submit
+            </button>
         </form>
     </div>
     <div>
@@ -52,9 +51,10 @@
         </div>
         <div class="flex flex-wrap justify-center">
             {% for img in images %}
-                    {% if project.primary_image.image.url == img.image.url %}
-                        <img id="primary_image" class="w-auto h-96 rounded-md border-solid border-2 border-red-500" src="{{ img.image.url }}" alt="{{ img.project.name }}" />
-                    {% endif %}
+            {% if project.primary_image.image.url == img.image.url %}
+            <img id="primary_image" class="w-auto h-96 rounded-md border-solid border-2 border-red-500"
+                src="{{ img.image.url }}" alt="{{ img.project.name }}" />
+            {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -65,46 +65,50 @@
 </div>
 <div class="flex flex-wrap justify-between pb-12 my-4 mx-4">
     {% for img in images %}
-        <div class="my-2">
-             <img class="image w-auto h-56 rounded-md cursor-pointer" src="{{ img.image.url }}" alt="{{ img.project.name }}" data-image-id="{{ img.id }}" />
-       </div>
-        {% endfor %}
+    <div class="my-2">
+        <img class="image w-auto h-56 rounded-md cursor-pointer" src="{{ img.image.url }}" alt="{{ img.project.name }}"
+            data-image-id="{{ img.id }}" />
+    </div>
+    {% endfor %}
 </div>
 <div class="modal-container hidden fixed z-10 inset-0 overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-      <div class="fixed inset-0 transition-opacity">
-        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-      </div>
-      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <form id="imageForm" method="POST" enctype="multipart/form-data">
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <form id="imageForm" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                <div class="sm:flex sm:items-start">
-                <div>
-                <h1 class="text-2xl">Select Images:</h1>          
-                    {{ image_form.as_p }}
-                    <input type="hidden" name="form_type" value="imageForm">
-                </div>
+                    <div class="sm:flex sm:items-start">
+                        <div>
+                            <h1 class="text-2xl">Select Images:</h1>
+                            {{ image_form.as_p }}
+                            <input type="hidden" name="form_type" value="imageForm">
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="submit"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                            Submit
+                        </button>
+                        <button type="button"
+                            class="close-button mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
-                Submit
-            </button>
-            <button type="button" class="close-button mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                Cancel
-            </button>
-            </div>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
 <script>
     const images = document.querySelectorAll(".image");
     const selectedImageInput = document.getElementById("selected_image_input");
-    let selectedImage = null
+    let selectedImage = null;
     images.forEach(image => {
-        image.addEventListener('click', function() {
+        image.addEventListener('click', function () {
             if (selectedImage !== image) {
                 selectedImage = image;
                 selectedImageInput.value = selectedImage.getAttribute("data-image-id");
@@ -139,10 +143,10 @@
     });
 
     closeButton.addEventListener('click', () => {
-    modal.classList.remove('opacity-100');
-    modal.classList.add('opacity-0');
-    setTimeout(() => modal.classList.add('hidden'), 500);
-  });
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0');
+        setTimeout(() => modal.classList.add('hidden'), 500);
+    });
 
 </script>
 {% endblock content %}

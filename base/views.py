@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -68,10 +69,25 @@ def admin_panel_projects(request):
     projects = Project.objects.all()
     form = ProjectForm()
     if request.method == 'POST':
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            form.save()
+        if request.POST.get("form_type") == 'createProjectForm':
+            form = ProjectForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('admin_projects')
+        elif request.POST.get("form_type") == 'deleteForm':
+            project_id = request.POST.get('selected_project')
+            project = Project.objects.get(pk=project_id)
+            
+            # delete project and all associated images from the database and file system
+            images = ProjectImage.objects.filter(project=project)
+            for image in images:
+                image_path = image.image.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+                image.delete()
+            project.delete()
             return redirect('admin_projects')
+        
     context = {'projects': projects, 'form': form}
     return render(request, 'base/admin_projects.html', context)
 

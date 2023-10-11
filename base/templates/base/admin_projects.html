@@ -22,7 +22,8 @@
                     src="{{ job.primary_image.image.url }}" alt="{{ job.name }}" />
             </a>
             <div class="flex  bg-red-500 text-2xl text-white font-MicrogrammaReg rounded-t-lg rounded-b-lg mt-1 h-12">
-                <button class="delete-button flex flex-grow justify-center items-center tracking-widest">Delete</button>
+                <button data-project-id="{{ job.id }}"
+                    class="delete-button flex flex-grow justify-center items-center tracking-widest">Delete</button>
             </div>
         </div>
         {% endfor %}
@@ -38,7 +39,7 @@
         <div
             class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <form method="POST">
+                <form id="createProjectForm" method="POST">
                     {% csrf_token %}
                     <div class="sm:flex sm:items-start">
                         <div>
@@ -66,6 +67,7 @@
                             Cancel
                         </button>
                     </div>
+                    <input type="hidden" name="form_type" value="createProjectForm">
                 </form>
             </div>
         </div>
@@ -80,7 +82,7 @@
         <div
             class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <form method="POST">
+                <form id="deleteForm" method="POST">
                     {% csrf_token %}
                     <div class="sm:flex sm:items-start">
                         <div>
@@ -101,7 +103,8 @@
                             Cancel
                         </button>
                     </div>
-                    <input type="hidden" name="delete" value="delete">
+                    <input type="hidden" name="form_type" value="deleteForm">
+                    <input type="hidden" id="selected_project_input" name="selected_project" value="">
                 </form>
             </div>
         </div>
@@ -128,12 +131,14 @@
     const deleteButton = document.querySelectorAll(".delete-button");
     const modalDelete = document.querySelector(".modal-container-delete");
     const closeButtonDelete = document.querySelector(".close-delete-button");
+    const selectedProjectInput = document.getElementById("selected_project_input");
 
     deleteButton.forEach((button) => {
         button.addEventListener('click', () => {
             modalDelete.classList.remove('hidden');
             setTimeout(() => modalDelete.classList.remove('opacity-0'), 100);
             modalDelete.classList.add('opacity-100');
+            selectedProjectInput.value = button.getAttribute("data-project-id");
         });
     });
 
