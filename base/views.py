@@ -90,26 +90,45 @@ def admin_project_details(request, pk):
     project = get_object_or_404(Project, pk=pk)
     images = ProjectImage.objects.filter(project=project)
     form = ProjectForm(instance=project)
+    image_form = ImageUploadForm()
 
     if request.method == 'POST':
-        form = ProjectForm(request.POST, instance=project)
-        if form.is_valid():
-            selected_image = request.POST.get('selected_image')
-            if selected_image:
-                project.primary_image = ProjectImage.objects.get(pk=selected_image)
-                project.name = request.POST['name']
-                project.description = request.POST['description']
-                project.project_type.id = request.POST.get('project_type')
-                project.save()
-            else:
-                project.name = request.POST['name']
-                project.description = request.POST['description']
-                project.project_type.id = request.POST.get('project_type')
-                project.save()
-            return redirect('admin_project_detail', pk=pk)
+        if request.POST.get("form_type") == 'imageForm':
+            image_form = ImageUploadForm(request.POST, request.FILES)
+            if image_form.is_valid():
+                for uploaded_file in request.FILES.getlist('images'):
+                    ProjectImage.objects.create(project=project, image=uploaded_file)
+                return redirect('admin_project_detail', pk=pk)
+        elif request.POST.get("form_type") == 'projectForm':
+            form = ProjectForm(request.POST, instance=project)
+            if form.is_valid():
+                selected_image = request.POST.get('selected_image')
+                if selected_image:
+                    project.primary_image = ProjectImage.objects.get(pk=selected_image)
+                    project.name = request.POST['name']
+                    project.description = request.POST['description']
+                    project.project_type.id = request.POST.get('project_type')
+                    project.save()
+                else:
+                    project.name = request.POST['name']
+                    project.description = request.POST['description']
+                    project.project_type.id = request.POST.get('project_type')
+                    project.save()
+                return redirect('admin_project_detail', pk=pk)
 
-    context = {'project': project, 'images': images, 'form': form}
+    context = {'project': project, 'images': images, 'form': form, 'image_form': image_form}
     return render(request, 'base/admin_project_details.html', context)
+
+@login_required(login_url='login_page')
+def admin_add_project(request):
+    form = ProjectForm()
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_projects')
+    context = {'form': form}
+    return render(request, 'base/admin_add_project.html', context)
 
 @login_required(login_url='login_page')
 def admin_project_types(request):

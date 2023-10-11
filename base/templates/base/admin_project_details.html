@@ -8,14 +8,17 @@
 </style>
 
 {% block content %}
-<div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
+<div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5 flex justify-between">
     <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
         <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Projects</h5>
+    </div>
+    <div class="flex justify-end items-center rounded-md mr-2 bg-black">
+        <a href="#" class="add-images text-2xl cursor-pointer w-44 p-4 ml-5 text-white font-medium lg:block">Add Images</a>
     </div>
 </div>
 <div class="flex justify-between items-center mt-8 mx-8">
     <div class="w-1/3 mr-8">
-        <form class="w-full mx-auto flex flex-col justify-center" method="POST">
+        <form id="projectForm" class="w-full mx-auto flex flex-col justify-center" method="POST">
         {% csrf_token %}
         <div>
             <div>Project Name:</div>
@@ -32,6 +35,7 @@
         <div class="hidden">
         {{ form.primary_image }}
         </div>
+        <input type="hidden" name="form_type" value="projectForm">
         <input type="hidden" id="selected_image_input" name="selected_image" value="">
         <button
         data-variant="flat"
@@ -66,6 +70,35 @@
        </div>
         {% endfor %}
 </div>
+<div class="modal-container hidden fixed z-10 inset-0 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 transition-opacity">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+      </div>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <form id="imageForm" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="sm:flex sm:items-start">
+                <div>
+                <h1 class="text-2xl">Select Images:</h1>          
+                    {{ image_form.as_p }}
+                    <input type="hidden" name="form_type" value="imageForm">
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                Submit
+            </button>
+            <button type="button" class="close-button mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                Cancel
+            </button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
     const images = document.querySelectorAll(".image");
     const selectedImageInput = document.getElementById("selected_image_input");
@@ -92,5 +125,24 @@
             }
         })
     })
+</script>
+<script>
+    // open modal popup that allows user to upload images with the upload images form
+    const addImages = document.querySelector(".add-images");
+    const modal = document.querySelector(".modal-container");
+    const closeButton = document.querySelector(".close-button");
+
+    addImages.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.remove('opacity-0'), 100);
+        modal.classList.add('opacity-100');
+    });
+
+    closeButton.addEventListener('click', () => {
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0');
+    setTimeout(() => modal.classList.add('hidden'), 500);
+  });
+
 </script>
 {% endblock content %}
