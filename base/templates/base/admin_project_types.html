@@ -14,24 +14,34 @@
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {% for type in project_types %}
         <div class="project-type-card border-solid border-2 rounded-md">
+            <div class="flex justify-between mx-4 my-2">
+                <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">
+                    {{ type }}</div>
+                <div class="mt-1">
+                    <button class="delete-button" data-project-type-id="{{ type.id }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                      </svg>
+                    </button>
+                </div>
+            </div>
+            <hr>
+            <div class="mx-4 mt-2">Total Projects: 
+                {% for project, group in grouped_projects.items %}
+                {% if project == type.name %}
+                {{ group|length }}
 
-            <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">
-                {{ type }}</div>
-            
-            {% for project, group in grouped_projects.items %}
-            {% if project == type.name %}
-            <div>
-                Total Projects: {{ group|length }}
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
-            {% for images in grouped_images.items %}
-            {% if images.0 == type.name %}
-            <div>
-                Total Images: {{ images.1|length }}
+            <div class="mx-4 mt-2 mb-2">Total Images: 
+                {% for images in grouped_images.items %}
+                {% if images.0 == type.name %}
+                {{ images.1|length }}
+    
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
         </div>
         {% endfor %}
         
@@ -76,6 +86,47 @@
         </div>
     </div>
 </div>
+<div class="modal-container-delete hidden fixed z-10 inset-0 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <form id="deleteForm" method="POST">
+                    {% csrf_token %}
+                    <div class="sm:flex sm:items-start">
+                        <div>
+                            <h1 class="text-2xl">Delete <span id="project-name3"></span></h1>
+                            <div class="items-center m-8">
+                                <div id="delete-confirmation">Are you sure you want to delete <span
+                                        id="project-name">Project Name Here</span>?
+                                </div>
+                                <div class="mt-2">
+                                    You will have to manually add a project type to all projects that were associated with <span id="project-name4">Project Name Here</span>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="submit"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                            Delete
+                        </button>
+                        <button type="button"
+                            class="close-delete-button mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                            Cancel
+                        </button>
+                    </div>
+                    <input type="hidden" name="form_type" value="deleteForm">
+                    <input type="hidden" id="selected_project_input" name="selected_project" value="">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- add project type form -->
 <script>
     const addType = document.querySelector('.add-type');
     const modalContainer = document.querySelector('.modal-container');
@@ -89,6 +140,36 @@
         button.addEventListener('click', () => {
             modalContainer.classList.add('hidden');
         });
+    });
+</script>
+<!-- delete project type form -->
+<script>
+    const deleteButton = document.querySelectorAll(".delete-button");
+    const modalDelete = document.querySelector(".modal-container-delete");
+    const closeButtonDelete = document.querySelector(".close-delete-button");
+    const selectedProjectInput = document.getElementById("selected_project_input");
+    const projectName1 = document.getElementById("project-name");
+
+    const projectName3 = document.getElementById("project-name3");
+    const projectName4 = document.getElementById("project-name4");
+
+    deleteButton.forEach((button) => {
+        button.addEventListener('click', () => {
+            modalDelete.classList.remove('hidden');
+            setTimeout(() => modalDelete.classList.remove('opacity-0'), 100);
+            modalDelete.classList.add('opacity-100');
+            selectedProjectInput.value = button.getAttribute("data-project-type-id");
+            // change the span text to the project name
+            projectName1.innerHTML = button.parentElement.parentElement.children[0].innerHTML;
+            projectName3.innerHTML = button.parentElement.parentElement.children[0].innerHTML;
+            projectName4.innerHTML = button.parentElement.parentElement.children[0].innerHTML;
+        });
+    });
+
+    closeButtonDelete.addEventListener('click', () => {
+        modalDelete.classList.remove('opacity-100');
+        modalDelete.classList.add('opacity-0');
+        setTimeout(() => modalDelete.classList.add('hidden'), 500);
     });
 </script>
 {% endblock content %}
