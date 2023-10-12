@@ -136,17 +136,40 @@ def admin_project_details(request, pk):
 def admin_project_types(request):
     projects = Project.objects.all()
     images = ProjectImage.objects.all()
+    project_types = ProjectType.objects.all()
     grouped_projects = {}
     grouped_images = {}
+
+    if request.method == 'POST':
+            if request.POST.get("form_type") == 'createProjectTypeForm':
+                form = ProjectTypeForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    return redirect('admin_project_types')
+            elif request.POST.get("form_type") == 'deleteForm':
+                project_type_id = request.POST.get('selected_project_type')
+                project_type = ProjectType.objects.get(pk=project_type_id)
+                project_type.delete()
+                return redirect('admin_project_types')
+            
+    # group projects by project type
     for project in projects:
-        
         if project.project_type.name in grouped_projects:
             grouped_projects[project.project_type.name].append(project)
         else:
             grouped_projects[project.project_type.name] = [project]
-    print(grouped_projects)
+    
+    # group images by project type
+    for image in images:
+        if image.project.project_type.name in grouped_images:
+            grouped_images[image.project.project_type.name].append(image)
+        else:
+            grouped_images[image.project.project_type.name] = [image]
+    
+    
+
     form = ProjectTypeForm()
-    context = {'form': form, 'projects': projects, 'grouped_projects': grouped_projects}
+    context = {'form': form, 'projects': projects, 'grouped_projects': grouped_projects, 'grouped_images': grouped_images, 'project_types': project_types}
     return render(request, 'base/admin_project_types.html', context)
 
 @login_required(login_url='login_page')

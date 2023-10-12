@@ -12,21 +12,84 @@
 </div>
 <div style="display: block;" class="px-6 pt-6 2xl:container">
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-
-        {% for project, groups in grouped_projects.items %}
+        {% for type in project_types %}
         <div class="project-type-card border-solid border-2 rounded-md">
 
             <div class="flex justify-center font-MicrogrammaReg tracking-widest font-semibold text-gray-600 text-2xl">
-                {{ project }}</div>
+                {{ type }}</div>
+            
+            {% for project, group in grouped_projects.items %}
+            {% if project == type.name %}
             <div>
-                Number of projects with this type: {{ groups|length }}
+                Total Projects: {{ group|length }}
             </div>
+            {% endif %}
+            {% endfor %}
+            {% for images in grouped_images.items %}
+            {% if images.0 == type.name %}
+            <div>
+                Total Images: {{ images.1|length }}
+            </div>
+            {% endif %}
+            {% endfor %}
 
         </div>
-
         {% endfor %}
+        
 
     </div>
 </div>
+<div class="modal-container hidden fixed z-10 inset-0 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <form id="createProjectTypeForm" method="POST">
+                    {% csrf_token %}
+                    <div class="sm:flex sm:items-start">
+                        <div>
+                            <h1 class="text-2xl">Add Project Type:</h1>
+                            <div class="items-center m-14">
 
+                                {% csrf_token %}
+                                <div>Name:</div>
+                                {{ form.name }}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="submit"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                            Submit
+                        </button>
+                        <button type="button"
+                            class="close-button mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                            Cancel
+                        </button>
+                    </div>
+                    <input type="hidden" name="form_type" value="createProjectTypeForm">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const addType = document.querySelector('.add-type');
+    const modalContainer = document.querySelector('.modal-container');
+    const closeButtons = document.querySelectorAll('.close-button');
+
+    addType.addEventListener('click', () => {
+        modalContainer.classList.remove('hidden');
+    });
+
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            modalContainer.classList.add('hidden');
+        });
+    });
+</script>
 {% endblock content %}
