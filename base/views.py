@@ -33,6 +33,9 @@ def contact(request):
             phone=request.POST['phone'],
             message=request.POST['message']
         )
+        # if user sent contact form then send email to admin that a new contact form has been submitted
+        # send_mail(
+
         return redirect('home')
     else:
         return render(request, 'base/contact.html')
@@ -195,3 +198,12 @@ def admin_customers(request):
 def logoutUser(request):
     logout(request)
     return redirect('home')
+
+# def send_email(request):
+#     s = smtplib.SMTP('smtp.gmail.com', 587)
+#     s.starttls()
+#     s.login("email", "password")
+#     message = "Message_you_need_to_send"
+#     s.sendmail("from_email", "to_email", message)
+#     s.quit()
+#     return redirect('home')
