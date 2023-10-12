@@ -54,6 +54,7 @@ def admin_login(request):
             print(e)
     return render(request, 'base/login.html')
 
+# ------------------ ADMIN DASHOBOARD ------------------ #
 @login_required(login_url='login_page')
 def admin_panel(request):
         
@@ -64,6 +65,7 @@ def admin_panel(request):
     context = {'projects': projects, 'images': images, 'project_types': project_types}
     return render(request, 'base/dashboard.html', context)
 
+# ------------------ ADMIN PROJECTS ------------------ #
 @login_required(login_url='login_page')
 def admin_panel_projects(request):
     projects = Project.objects.all()
@@ -91,6 +93,7 @@ def admin_panel_projects(request):
     context = {'projects': projects, 'form': form}
     return render(request, 'base/admin_projects.html', context)
 
+# ------------------ ADMIN PROJECT DETAILS ------------------ #
 @login_required(login_url='login_page')
 def admin_project_details(request, pk):
     project = get_object_or_404(Project, pk=pk)
@@ -132,6 +135,7 @@ def admin_project_details(request, pk):
     context = {'project': project, 'images': images, 'form': form, 'image_form': image_form}
     return render(request, 'base/admin_project_details.html', context)
 
+# ------------------ ADMIN PROJECT TYPES ------------------ #
 @login_required(login_url='login_page')
 def admin_project_types(request):
     projects = Project.objects.all()
@@ -139,7 +143,8 @@ def admin_project_types(request):
     project_types = ProjectType.objects.all()
     grouped_projects = {}
     grouped_images = {}
-
+    
+    # if the form_type is createProjectTypeForm, then the user is trying to create a new project type
     if request.method == 'POST':
             if request.POST.get("form_type") == 'createProjectTypeForm':
                 form = ProjectTypeForm(request.POST)
@@ -169,18 +174,18 @@ def admin_project_types(request):
             else:
                 grouped_images[image.project.project_type.name] = [image]
     
-    
-
     form = ProjectTypeForm()
     context = {'form': form, 'projects': projects, 'grouped_projects': grouped_projects, 'grouped_images': grouped_images, 'project_types': project_types}
     return render(request, 'base/admin_project_types.html', context)
 
+# ------------------ ADMIN IMAGES ------------------ #
 @login_required(login_url='login_page')
 def admin_images(request):
     images = ProjectImage.objects.all()
     context = {'images': images}
     return render(request, 'base/admin_images.html', context)
 
+# ------------------ ADMIN CUSTOMERS ------------------ #
 @login_required(login_url='login_page')
 def admin_customers(request):
     customers = ContactUs.objects.all()
