@@ -103,4 +103,14 @@
         setTimeout(() => modalDelete.classList.add('hidden'), 500);
     });
 </script>
+
+<script>
+    const navigationButton = document.querySelector(".images-button");
+    const navigationButton2 = document.querySelector(".dashboard-button");
+
+    navigationButton.classList.add("bg-gradient-to-r", "from-sky-600", "to-cyan-400", "text-white", "font-bold");
+    navigationButton.classList.remove("hover:text-white", "hover:font-bold");
+    navigationButton2.classList.remove("bg-gradient-to-r", "from-sky-600", "to-cyan-400", "text-white", "font-bold");
+    navigationButton2.classList.add("group-hover:text-white", "group-hover:font-bold", "text-gray-600");
+</script>
 {% endblock content %}
