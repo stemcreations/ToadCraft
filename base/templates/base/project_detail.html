@@ -7,7 +7,7 @@
     <div class="p-4 flex justify-center">
         <a href="{{ img.image.url }}">
             <img class="h-auto w-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
-                src="{{ img.image.url }}" alt="{{ project.name }}" />
+                src="{{ img.image.url }}" lazyload alt="{{ project.name }}" />
         </a>
     </div>
     {% endfor %}
