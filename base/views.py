@@ -189,7 +189,20 @@ def admin_project_types(request):
 @login_required(login_url='login_page')
 def admin_images(request):
     images = ProjectImage.objects.all()
-    context = {'images': images}
+    projects = Project.objects.all()
+
+    # if the form_type is deleteForm, then the user is trying to delete an image
+    if request.method == 'POST':
+        if request.POST.get("form_type") == 'deleteForm':
+            image_id = request.POST.get('selected_image')
+            image = ProjectImage.objects.get(pk=image_id)
+            image_path = image.image.path
+            if os.path.exists(image_path):
+                os.remove(image_path)
+            image.delete()
+            return redirect('admin_images')
+
+    context = {'images': images, 'projects': projects}
     return render(request, 'base/admin_images.html', context)
 
 # ------------------ ADMIN CUSTOMERS ------------------ #
