@@ -5,7 +5,7 @@
 <div class="grid lg:grid-cols-3 md:grid-cols-2">
     {% for img in images %}
     <div class="p-4 flex justify-center">
-        <a href="{% url 'project_detail' project.id %}">
+        <a href="{{ img.image.url }}">
             <img class="h-auto w-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
                 src="{{ img.image.url }}" alt="{{ project.name }}" />
         </a>
