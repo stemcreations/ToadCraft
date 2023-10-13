@@ -73,9 +73,13 @@ def admin_panel(request):
 def admin_panel_projects(request):
     projects = Project.objects.all()
     form = ProjectForm()
+
+    # if the form_type is createProjectForm, then the user is trying to create a new project
+    # if the form_type is deleteForm, then the user is trying to delete a project
     if request.method == 'POST':
         if request.POST.get("form_type") == 'createProjectForm':
             form = ProjectForm(request.POST)
+            print('create project.')
             if form.is_valid():
                 form.save()
                 return redirect('admin_projects')
