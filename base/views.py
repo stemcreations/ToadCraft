@@ -1,4 +1,5 @@
 import os
+from django.core import serializers
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -65,7 +66,11 @@ def admin_panel(request):
     images = ProjectImage.objects.all()
     project_types = ProjectType.objects.all()
 
-    context = {'projects': projects, 'images': images, 'project_types': project_types}
+    projects_json = serializers.serialize('json', projects)
+    images_json = serializers.serialize('json', images)
+    project_types_json = serializers.serialize('json', project_types)
+
+    context = {'projects_json': projects_json, 'images_json': images_json, 'project_types_json': project_types_json, 'projects': projects, 'images': images, 'project_types': project_types}
     return render(request, 'base/dashboard.html', context)
 
 # ------------------ ADMIN PROJECTS ------------------ #
@@ -79,7 +84,6 @@ def admin_panel_projects(request):
     if request.method == 'POST':
         if request.POST.get("form_type") == 'createProjectForm':
             form = ProjectForm(request.POST)
-            print('create project.')
             if form.is_valid():
                 form.save()
                 return redirect('admin_projects')
