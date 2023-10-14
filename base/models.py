@@ -1,9 +1,8 @@
 from django.db import models
 
 # Create your models here.
- 
- # project model where many images have a many to many relationship with the project type.
- # project types include stickers, vinyl wraps, banners and custom graphics. the admin can add more project types as needed.
+# project model where many images have a many to many relationship with the project type.
+# project types include stickers, vinyl wraps, banners and custom graphics. the admin can add more project types as needed.
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
@@ -32,6 +31,7 @@ class ContactUs(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=100)
+    project_type = models.ForeignKey('ProjectType', null=True, blank=True, on_delete=models.SET_NULL)
     message = models.TextField()
 
     def __str__(self):

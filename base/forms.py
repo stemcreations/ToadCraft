@@ -51,5 +51,23 @@ class ProjectImageForm(forms.ModelForm):
         model = ProjectImage
         fields = "__all__"
 
+# contact us form
+class CustomerForm(forms.ModelForm):
+    tailwind_class = """w-full border-2 border-ch-gray-light 
+        bg-ch-gray-dark rounded-lg 
+        focus:outline-ch-green-light focus:outline-0 
+        focus:outline-offset-0 focus:border-2 
+        focus:border-woys-purple focus:shadow-none 
+        focus:ring-0 focus:shadow-0"
+        """
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': tailwind_class}))
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': tailwind_class}))
+    phone = forms.CharField(widget=forms.TextInput(attrs={'class': tailwind_class}))
+    project_type = forms.ModelChoiceField(queryset=ProjectType.objects.all(), widget=forms.Select(attrs={'class': tailwind_class}))
+    message = forms.CharField(widget=forms.Textarea(attrs={'class': tailwind_class}))
+
+    class Meta:
+        model = ContactUs
+        fields = ['name', 'email', 'phone', 'project_type', 'message']
 
 

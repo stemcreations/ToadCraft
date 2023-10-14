@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Project, ProjectType, ProjectImage, ContactUs
-from .forms import ImageUploadForm, ProjectForm, ProjectTypeForm, ProjectImageForm
+from .forms import ImageUploadForm, ProjectForm, ProjectTypeForm, ProjectImageForm, CustomerForm
 
 # Create your views here.
 
@@ -27,19 +27,16 @@ def project_detail(request, pk):
     return render(request, 'base/project_detail.html', context)
 
 def contact(request):
+    form = CustomerForm()
     if request.method == 'POST':
-        ContactUs.objects.create(
-            name=request.POST['name'],
-            email=request.POST['email'],
-            phone=request.POST['phone'],
-            message=request.POST['message']
-        )
-        # if user sent contact form then send email to admin that a new contact form has been submitted
-        # send_mail(
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            form.save()
 
         return redirect('home')
-    else:
-        return render(request, 'base/contact.html')
+    
+    context = {'form': form}
+    return render(request, 'base/contact.html', context)
 
 def admin_login(request):
     if request.user.is_authenticated:
