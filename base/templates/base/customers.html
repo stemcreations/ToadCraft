@@ -3,121 +3,80 @@
 {% block content %}
 <div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
     <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
-        <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Contacts</h5>
+        <h5 hidden class="text-2xl mt-2 text-gray-600 font-medium lg:block">Customers</h5>
     </div>
 </div>
-<section class="antialiased bg-gray-100 text-gray-600 h-screen px-4">
-    <div class="flex flex-col justify-center h-full">
+<section class="antialiased bg-gray-100 text-gray-600 h-screen">
+    <div class="flex flex-col justify-center">
         <!-- Table -->
-        <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-            <header class="px-5 py-4 border-b border-gray-100">
-                <h2 class="font-semibold text-gray-800">Customers</h2>
-            </header>
+        <div class="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
             <div class="p-3">
                 <div class="overflow-x-auto">
                     <table class="table-auto w-full">
-                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                        <thead class="text-xs font-semibold uppercase text-gray-600 bg-gray-50">
                             <tr>
-                                <th class="p-2 whitespace-nowrap">
+                                <th class="p-2 whitespace-nowrap w-1/6">
                                     <div class="font-semibold text-left">Name</div>
                                 </th>
-                                <th class="p-2 whitespace-nowrap">
+                                <th class="p-2 whitespace-nowrap w-1/5">
                                     <div class="font-semibold text-left">Email</div>
                                 </th>
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left">Spent</div>
+                                <th class="p-2 whitespace-nowrap w-1/6">
+                                    <div class="font-semibold text-left">Phone #</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap w-1/12">
+                                    <div class="font-semibold text-left">Service</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-center">Country</div>
+                                    <div class="font-semibold text-left">Message</div>
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
+                            {% for customer in customers %}
                             <tr>
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg" width="40" height="40" alt="Alex Shatov"></div>
-                                        <div class="font-medium text-gray-800">Alex Shatov</div>
+                                        <div class="font-medium text-gray-800">{{ customer.name }}</div>
                                     </div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">alexshatov@gmail.com</div>
+                                    <div class="text-left">{{ customer.email }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">$2,890.66</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">??</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-06.jpg" width="40" height="40" alt="Philip Harbach"></div>
-                                        <div class="font-medium text-gray-800">Philip Harbach</div>
+                                    <div class="text-left font-medium text-gray-800">
+                                        <!-- format phone number to appear as (111) 111-1111 -->
+                                        {% for digit in customer.phone %}
+                                        {% if forloop.counter == 1 %}
+                                        (
+                                        {% endif %}
+                                        {% if forloop.counter == 4 %}
+                                        )
+                                        {% endif %}
+                                        {% if forloop.counter == 7 %}
+                                        -
+                                        {% endif %}
+                                        {{ digit }}
+                                        {% endfor %}
                                     </div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">philip.h@gmail.com</div>
+                                <td>
+                                    <div class="text-left">{{ customer.project_type }}</div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">$2,767.04</div>
+                                <td>
+                                    <div class="flex flex-wrap">{{ customer.message }}</div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">??</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-07.jpg" width="40" height="40" alt="Mirko Fisuk"></div>
-                                        <div class="font-medium text-gray-800">Mirko Fisuk</div>
+                                <td>
+                                    <div class="">
+                                        <button class="delete-button" data-customer-id="{{ customer.id }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                          </svg>
+                                        </button>
                                     </div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">mirkofisuk@gmail.com</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">$2,996.00</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">??</div>
-                                </td>
                             </tr>
-                            <tr>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-08.jpg" width="40" height="40" alt="Olga Semklo"></div>
-                                        <div class="font-medium text-gray-800">Olga Semklo</div>
-                                    </div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">olga.s@cool.design</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">$1,220.66</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">??</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-09.jpg" width="40" height="40" alt="Burak Long"></div>
-                                        <div class="font-medium text-gray-800">Burak Long</div>
-                                    </div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">longburak@gmail.com</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">$1,890.66</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">??</div>
-                                </td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -125,6 +84,63 @@
         </div>
     </div>
 </section>
+<div class="modal-container-delete hidden fixed z-10 inset-0 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <form id="deleteForm" method="POST">
+                    {% csrf_token %}
+                    <div class="sm:flex sm:items-start">
+                        <div>
+                            <h1 class="text-2xl">Delete Customer</h1>
+                            <div class="items-center m-8">
+                                <div id="delete-confirmation">Are you sure you want to permanently delete this Customer?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="submit"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                            Delete
+                        </button>
+                        <button type="button"
+                            class="close-delete-button mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                            Cancel
+                        </button>
+                    </div>
+                    <input type="hidden" name="form_type" value="deleteForm">
+                    <input type="hidden" id="selected_project_input" name="selected_customer" value="">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const deleteButton = document.querySelectorAll(".delete-button");
+    const modalDelete = document.querySelector(".modal-container-delete");
+    const closeButtonDelete = document.querySelector(".close-delete-button");
+    const selectedProjectInput = document.getElementById("selected_project_input");
+
+    deleteButton.forEach((button) => {
+        button.addEventListener('click', () => {
+            modalDelete.classList.remove('hidden');
+            setTimeout(() => modalDelete.classList.remove('opacity-0'), 100);
+            modalDelete.classList.add('opacity-100');
+            selectedProjectInput.value = button.getAttribute("data-customer-id");
+        });
+    });
+
+    closeButtonDelete.addEventListener('click', () => {
+        modalDelete.classList.remove('opacity-100');
+        modalDelete.classList.add('opacity-0');
+        setTimeout(() => modalDelete.classList.add('hidden'), 500);
+    });
+</script>
 <script>
     const navigationButton = document.querySelector(".contacts-button");
     const navigationButton2 = document.querySelector(".dashboard-button");

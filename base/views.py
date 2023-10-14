@@ -210,6 +210,15 @@ def admin_images(request):
 @login_required(login_url='login_page')
 def admin_customers(request):
     customers = ContactUs.objects.all()
+
+    # if the form_type is deleteForm, then the user is trying to delete a customer
+    if request.method == 'POST':
+        if request.POST.get("form_type") == 'deleteForm':
+            customer_id = request.POST.get('selected_customer')
+            customer = ContactUs.objects.get(pk=customer_id)
+            customer.delete()
+            return redirect('admin_customers')
+
     context = {'customers': customers}
     return render(request, 'base/customers.html', context)
 
