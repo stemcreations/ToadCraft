@@ -34,7 +34,7 @@
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
                             {% for customer in customers %}
-                            <tr>
+                            <tr class="h-16">
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="font-medium text-gray-800">{{ customer.name }}</div>
@@ -74,6 +74,7 @@
         </div>
     </div>
 </section>
+<!-- Delete Customer Modal PopUp View -->
 <div class="modal-container-delete hidden fixed z-10 inset-0 overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 transition-opacity">
