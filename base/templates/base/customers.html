@@ -44,21 +44,11 @@
                                     <div class="text-left">{{ customer.email }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-gray-800">
-                                        <!-- format phone number to appear as (111) 111-1111 -->
-                                        {% for digit in customer.phone %}
-                                        {% if forloop.counter == 1 %}
-                                        (
-                                        {% endif %}
-                                        {% if forloop.counter == 4 %}
-                                        )
-                                        {% endif %}
-                                        {% if forloop.counter == 7 %}
-                                        -
-                                        {% endif %}
-                                        {{ digit }}
-                                        {% endfor %}
-                                    </div>
+                                    <div class="text-left font-medium text-gray-800"> 
+                                        ({{ customer.phone|make_list|slice:"0:3"|join:"" }}) 
+                                        {{ customer.phone|make_list|slice:"3:6"|join:"" }}-{{ customer.phone|make_list|slice:"6:10"|join:"" }}
+
+                                    </div>      
                                 </td>
                                 <td>
                                     <div class="text-left">{{ customer.project_type }}</div>
